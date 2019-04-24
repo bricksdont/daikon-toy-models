@@ -9,6 +9,8 @@ mkdir -p $base/logs
 num_threads=5
 model_name=model_bpe25k_batch20_epochs5
 
+mkdir -p $base/logs/$model_name
+
 ##################################
 
 OMP_NUM_THREADS=$num_threads CUDA_VISIBLE_DEVICES=0 daikon train \
