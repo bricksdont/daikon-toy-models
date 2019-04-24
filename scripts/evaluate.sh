@@ -25,8 +25,8 @@ for corpus in dev test; do
 
 	OMP_NUM_THREADS=$num_threads CUDA_VISIBLE_DEVICES=0 daikon translate \
 				-i $data/$corpus.bpe.$src \
-				-o $translations/$corpus.bpe.$model_name.$trg
-
+				-o $translations/$corpus.bpe.$model_name.$trg \
+				-m $base/models/$model_name
 
 	# undo BPE
 

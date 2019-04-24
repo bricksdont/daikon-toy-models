@@ -57,8 +57,8 @@ done
 
 # learn BPE model on train (one for each language)
 
-subword-nmt learn_bpe -i $data/train.truecased.$src -s $bpe_num_operations -o $base/shared_models/$src.bpe
-subword-nmt learn_bpe -i $data/train.truecased.$trg -s $bpe_num_operations -o $base/shared_models/$trg.bpe
+subword-nmt learn-bpe -i $data/train.truecased.$src -s $bpe_num_operations -o $base/shared_models/$src.bpe
+subword-nmt learn-bpe -i $data/train.truecased.$trg -s $bpe_num_operations -o $base/shared_models/$trg.bpe
 
 # apply BPE model to train, test and dev
 
