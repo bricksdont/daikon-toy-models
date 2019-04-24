@@ -5,8 +5,10 @@ base=$scripts/..
 
 data=$base/data
 translations=$base/translations
+bleu=$base/bleu
 
 mkdir -p $translations
+mkdir -p $bleu
 
 src=de
 trg=en
@@ -19,23 +21,31 @@ num_threads=5
 
 ##########################################
 
-OMP_NUM_THREADS=$num_threads CUDA_VISIBLE_DEVICES=0 daikon translate \
-				-i $data/test.bpe.$src \
-				-o $translations/test.bpe.$model_name.$trg
+for corpus in dev test; do
+
+	OMP_NUM_THREADS=$num_threads CUDA_VISIBLE_DEVICES=0 daikon translate \
+				-i $data/$corpus.bpe.$src \
+				-o $translations/$corpus.bpe.$model_name.$trg
 
 
-# undo BPE
+	# undo BPE
 
-cat $translations/test.bpe.$model_name.$trg | sed 's/\@\@ //g' > $translations/test.truecased.$model_name.$trg
+	cat $translations/$corpus.bpe.$model_name.$trg | sed 's/\@\@ //g' > $translations/$corpus.truecased.$model_name.$trg
 
-# undo truecasing
+	# undo truecasing
 
-cat $translations/test.truecased.$model_name.$trg | $MOSES/recaser/detruecase.perl > $translations/test.tokenized.$model_name.$trg
+	cat $translations/$corpus.truecased.$model_name.$trg | $MOSES/recaser/detruecase.perl > $translations/$corpus.tokenized.$model_name.$trg
 
-# undo tokenization
+	# undo tokenization
 
-cat $translations/test.tokenized.$model_name.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $translations/test.$model_name.$trg
+	cat $translations/$corpus.tokenized.$model_name.$trg | $MOSES/tokenizer/detokenizer.perl -l $trg > $translations/$corpus.$model_name.$trg
 
-# compute case-sensitive BLEU on detokenized data
+	# compute case-sensitive BLEU on detokenized data
 
-cat $translations/test.$model_name.$trg | sacrebleu $data/test.$trg
+	cat $translations/$corpus.$model_name.$trg | sacrebleu $data/$corpus.$trg > $bleu/$corpus.$model_name.bleu
+
+	# to stdout
+	echo "$translations/$corpus.$model_name.$trg":
+	cat $bleu/$corpus.$model_name.bleu
+
+done
