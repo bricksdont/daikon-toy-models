@@ -20,7 +20,7 @@ Download and install required software:
 
     ./scripts/download_install_packages.sh
 
-Download and split data:
+Download data:
 
     ./scripts/download_data.sh
 
