@@ -14,7 +14,7 @@ trg=en
 # cloned from https://github.com/bricksdont/moses-scripts
 MOSES=$base/tools/moses-scripts/scripts
 
-model_name=model_bpe25k_batch20_epochs10
+model_name=model_bpe25k_batch20_epochs5
 num_threads=5
 
 ##########################################

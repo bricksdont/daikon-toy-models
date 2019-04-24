@@ -9,7 +9,7 @@ mkdir -p $tools
 # download and install daikon
 
 git clone https://github.com/ZurichNLP/daikon $tools/daikon
-(cd $tools/daikon && pip3 install --editable --no-deps .)
+(cd $tools/daikon && pip3 install --no-deps --editable .)
 
 # install BPE library
 

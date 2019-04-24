@@ -14,7 +14,7 @@ This will train a **toy** model that does not output meaningful translations. Al
 Clone this repository in the desired place:
 
     git clone https://github.com/bricksdont/daikon-toy-models
-    cd sockeye-toy-models
+    cd daikon-toy-models
 
 Download and install required software:
 
@@ -22,7 +22,7 @@ Download and install required software:
 
 Download and split data:
 
-    ./scripts/download_split_data.sh
+    ./scripts/download_data.sh
 
 Preprocess data:
 
